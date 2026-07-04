@@ -7,9 +7,10 @@ const projects = {
     title: 'InterviewIQ',
     summary: 'AI-powered career intelligence platform for evidence-based résumé analysis, ATS evaluation, and interview preparation.',
     image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop',
-    techStack: ['Python', 'AI/ML', 'NLP', 'React', 'OpenAI API'],
+    techStack: ['Python', 'AI/ML', 'NLP', 'React', 'FastAPI', 'LangGraph'],
     category: 'AI/ML',
     year: '2024',
+    liveUrl: 'https://interview-iq-areeb-syed.vercel.app',
     repoUrl: 'https://github.com/4reeb-5yed/InterviewIQ',
     challenges: 'Creating an accurate ATS evaluation system that can analyze resumes against job descriptions and provide actionable feedback. Ensuring the AI understands context and nuances in professional experiences.',
     solution: 'Built a multi-layer NLP pipeline that parses resumes, extracts key skills and experiences, and compares them against job requirements. Integrated with OpenAI for intelligent feedback generation.',
@@ -22,21 +23,23 @@ const projects = {
     techStack: ['React', 'Express.js', 'MongoDB', 'Gemini API', 'JavaScript'],
     category: 'Cybersecurity',
     year: '2024',
+    liveUrl: 'https://fish-sail.onrender.com',
     repoUrl: 'https://github.com/4reeb-5yed/Phishing_Simulator',
     challenges: 'Creating realistic phishing templates that test employee awareness while ensuring the simulation is ethical and educational. Integrating AI for dynamic content generation.',
     solution: 'Built a comprehensive phishing template system with AI-generated scenarios. Implemented detailed tracking and reporting for organizations to measure security awareness.',
     outcome: 'Organizations can train employees to recognize phishing attempts and measure improvement over time.',
   },
   'caesar-cipher-tool': {
-    title: 'Caesar Cipher Tool',
+    title: 'Caesar Cipher Pro',
     summary: 'Cryptographic analysis platform for automated Caesar cipher detection and statistical frequency analysis.',
     image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&h=800&fit=crop',
-    techStack: ['JavaScript', 'Cryptography', 'Statistics', 'Web Technologies'],
+    techStack: ['React', 'Vite', 'JavaScript', 'Chi-squared Analysis'],
     category: 'Security Tools',
     year: '2024',
+    liveUrl: 'https://caesar-cipher-pro.netlify.app',
     repoUrl: 'https://github.com/4reeb-5yed/caesar-cipher-tool',
     challenges: 'Developing an algorithm that can efficiently crack Caesar ciphers of varying lengths and languages. Balancing accuracy with computational efficiency.',
-    solution: 'Implemented multiple attack strategies including brute force, frequency analysis, and pattern matching. Built an intuitive interface for users to interact with cryptographic operations.',
+    solution: 'Implemented multiple attack strategies including brute force, frequency analysis, and pattern matching using chi-squared statistical analysis.',
     outcome: 'Educational tool that demonstrates cryptographic concepts and automated cryptanalysis techniques.',
   },
 }
@@ -79,7 +82,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             <Image src={project.image} alt={project.title} fill className="object-cover" priority />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-12">
             <div>
               <h3 className="text-xs font-mono uppercase text-brass mb-2">Year</h3>
               <p className="text-ink">{project.year}</p>
@@ -88,7 +91,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               <h3 className="text-xs font-mono uppercase text-brass mb-2">Category</h3>
               <p className="text-ink">{project.category}</p>
             </div>
-            <div>
+            <div className="col-span-2">
               <h3 className="text-xs font-mono uppercase text-brass mb-2">Tech Stack</h3>
               <div className="flex flex-wrap gap-2">
                 {project.techStack.map((tech) => (
@@ -96,9 +99,17 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 ))}
               </div>
             </div>
+            <div className="col-span-2 md:col-span-1">
+              <h3 className="text-xs font-mono uppercase text-brass mb-2">Live Demo</h3>
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-block px-4 py-2 bg-ember text-stone text-sm rounded-ledger hover:brightness-110">
+                View Live →
+              </a>
+            </div>
             <div>
               <h3 className="text-xs font-mono uppercase text-brass mb-2">Source</h3>
-              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">View on GitHub →</a>
+              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="inline-block px-4 py-2 border border-ink/20 text-ink text-sm rounded-ledger hover:bg-ink/5">
+                GitHub →
+              </a>
             </div>
           </div>
 
