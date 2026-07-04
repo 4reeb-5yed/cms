@@ -68,15 +68,10 @@ export default function ProjectsPage() {
                   </div>
                   <h2 className="font-display text-2xl text-ink mb-2 group-hover:text-ember transition-colors">{project.title}</h2>
                   <p className="text-sm text-ink/70 mb-4 line-clamp-2">{project.summary}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2">
                     {project.techStack.map((tag) => (
                       <span key={tag} className="px-3 py-1 text-xs font-mono uppercase border border-moss text-moss rounded-ledger">{tag}</span>
                     ))}
-                  </div>
-                  <div className="flex gap-3" onClick={(e) => e.preventDefault()}>
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-ember text-stone text-xs font-medium rounded-ledger hover:brightness-110 z-10 relative">
-                      View Live
-                    </a>
                   </div>
                 </div>
               </Link>
