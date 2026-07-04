@@ -1,121 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=General+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --ink: #211F1A;
+  --ink: #1a1817;
   --stone: #E8E3D6;
-  --charcoal: #2C2A24;
+  --charcoal: #2B2826;
   --ember: #B3502C;
-  --moss: #556253;
-  --brass: #A6813F;
-  
-  --font-display: 'Instrument Serif', serif;
-  --font-body: 'General Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --space-24: 96px;
-  
-  --motion-instant: 100ms linear;
-  --motion-standard: 240ms cubic-bezier(0.4, 0, 0.2, 1);
-  --motion-deliberate: 480ms cubic-bezier(0.16, 1, 0.3, 1);
-  
-  --radius: 2px;
+  --moss: #4A5E4C;
+  --brass: #8C7346;
 }
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    @apply bg-stone text-ink font-body antialiased;
-    font-feature-settings: 'kern' 1, 'liga' 1;
-  }
-  
-  h1, h2, h3, h4 {
-    @apply font-display;
-  }
-  
-  ::selection {
-    @apply bg-ember text-stone;
-  }
+body {
+  background-color: var(--stone);
+  color: var(--ink);
 }
 
-@layer components {
-  .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-ember text-stone font-body font-medium text-sm rounded-ledger transition-all duration-100;
-    &:hover { @apply brightness-110; }
-    &:focus { @apply outline-none ring-2 ring-ink ring-offset-2; }
-    &:disabled { @apply opacity-40 cursor-not-allowed; }
-  }
-  
-  .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-transparent text-ink border border-ink font-body font-medium text-sm rounded-ledger transition-all duration-100;
-    &:hover { @apply bg-ink text-stone; }
-    &:focus { @apply outline-none ring-2 ring-ink ring-offset-2; }
-  }
-  
-  .btn-tertiary {
-    @apply inline-flex items-center text-ember font-body font-medium text-sm;
-    &:hover { @apply underline; }
-  }
-  
-  .tag {
-    @apply inline-flex items-center px-3 py-1 text-xs font-mono font-medium tracking-wider uppercase border border-moss text-moss rounded-ledger;
-  }
-  
-  .reading-width {
-    max-width: 68ch;
-  }
-  
-  .block-spacing {
-    @apply py-12 md:py-24;
-  }
+.font-display {
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
-@layer utilities {
-  .animate-deliberate {
-    animation: fadeSlideIn var(--motion-deliberate) forwards;
-  }
-  
-  .animate-standard {
-    animation: fadeIn var(--motion-standard) forwards;
-  }
-  
-  @keyframes fadeSlideIn {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+.font-body {
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+.font-mono {
+  font-family: 'Courier New', monospace;
+}
+
+.bg-stone { background-color: var(--stone); }
+.bg-ink { background-color: var(--ink); }
+.bg-charcoal { background-color: var(--charcoal); }
+.bg-ember { background-color: var(--ember); }
+.bg-moss { background-color: var(--moss); }
+.bg-brass { background-color: var(--brass); }
+
+.text-stone { color: var(--stone); }
+.text-ink { color: var(--ink); }
+.text-charcoal { color: var(--charcoal); }
+.text-ember { color: var(--ember); }
+.text-moss { color: var(--moss); }
+.text-brass { color: var(--brass); }
+
+.border-ink { border-color: var(--ink); }
+.border-stone { border-color: var(--stone); }
+.border-ember { border-color: var(--ember); }
+.border-moss { border-color: var(--moss); }
+.border-brass { border-color: var(--brass); }
+
+.rounded-ledger {
+  border-radius: 0.25rem;
+}
+
+.block-spacing {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
