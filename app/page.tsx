@@ -73,28 +73,20 @@ export default function HomePage() {
           <h2 className="font-display text-3xl md:text-4xl text-ink mb-12">Selected Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProjects.map((project) => (
-              <div key={project.slug} className="group block bg-stone border border-ink/10 hover:border-ink rounded-ledger overflow-hidden transition-all">
+              <Link key={project.slug} href={`/projects/${project.slug}`} className="group block bg-stone border border-ink/10 hover:border-ink rounded-ledger overflow-hidden transition-all">
                 <div className="aspect-[3/2] relative overflow-hidden">
                   <Image src={project.coverImage.url} alt={project.coverImage.alt} fill className="object-cover transition-transform group-hover:scale-105" />
                 </div>
                 <div className="p-6">
                   <h3 className="font-display text-xl text-ink mb-2 group-hover:text-ember transition-colors">{project.title}</h3>
                   <p className="text-sm text-ink/70 mb-4 line-clamp-2">{project.summary}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2">
                     {project.techStack.map((tag) => (
                       <span key={tag} className="px-3 py-1 text-xs font-mono uppercase border border-moss text-moss rounded-ledger">{tag}</span>
                     ))}
                   </div>
-                  <div className="flex gap-3">
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-ember text-stone text-xs font-medium rounded-ledger hover:brightness-110">
-                      View Live
-                    </a>
-                    <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 border border-ink/20 text-ink text-xs font-medium rounded-ledger hover:bg-ink/5">
-                      GitHub
-                    </a>
-                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

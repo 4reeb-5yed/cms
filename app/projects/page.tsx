@@ -57,7 +57,7 @@ export default function ProjectsPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project) => (
-              <div key={project.slug} className="group block bg-stone border border-ink/10 hover:border-ink rounded-ledger overflow-hidden transition-all">
+              <Link key={project.slug} href={`/projects/${project.slug}`} className="group block bg-stone border border-ink/10 hover:border-ink rounded-ledger overflow-hidden transition-all">
                 <div className="aspect-[4/3] relative overflow-hidden">
                   <Image src={project.coverImage.url} alt={project.coverImage.alt} fill className="object-cover transition-transform group-hover:scale-105" />
                 </div>
@@ -73,16 +73,13 @@ export default function ProjectsPage() {
                       <span key={tag} className="px-3 py-1 text-xs font-mono uppercase border border-moss text-moss rounded-ledger">{tag}</span>
                     ))}
                   </div>
-                  <div className="flex gap-3">
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-ember text-stone text-xs font-medium rounded-ledger hover:brightness-110">
+                  <div className="flex gap-3" onClick={(e) => e.preventDefault()}>
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-ember text-stone text-xs font-medium rounded-ledger hover:brightness-110 z-10 relative">
                       View Live
                     </a>
-                    <Link href={`/projects/${project.slug}`} className="px-4 py-2 border border-ink/20 text-ink text-xs font-medium rounded-ledger hover:bg-ink/5">
-                      Details
-                    </Link>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
