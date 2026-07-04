@@ -19,9 +19,9 @@ export default buildConfig({
     meta: { titleSuffix: '- Fieldnote Portfolio' },
   },
   editor: slateEditor({}),
-  db: postgresAdapter({ pool: { connectionString: process.env.DATABASE_URI } }),
+  db: postgresAdapter({ pool: { connectionString: process.env.DATABASE_URI! } }),
   upload: { limits: { fileSize: 5000000 } },
   collections: [Users, Media, Pages, Projects, Navigation, SiteSettings],
-  secret: process.env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET!,
   typescript: { outputFile: path.resolve(dirname, 'types.generated.ts') },
 })
