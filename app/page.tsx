@@ -1,27 +1,27 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-const sampleProjects = [
+const featuredProjects = [
   {
-    slug: 'ecommerce-dashboard',
-    title: 'E-commerce Dashboard',
-    summary: 'A real-time analytics dashboard for online retailers, featuring sales tracking, inventory management, and customer insights.',
-    coverImage: { url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop', alt: 'Dashboard interface' },
-    techStack: ['React', 'D3.js', 'Node.js'],
+    slug: 'interviewiq',
+    title: 'InterviewIQ',
+    summary: 'AI-powered career intelligence platform for evidence-based résumé analysis, ATS evaluation, and interview preparation.',
+    coverImage: { url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop', alt: 'AI platform interface' },
+    techStack: ['Python', 'AI/ML', 'NLP', 'React'],
   },
   {
-    slug: 'mobile-banking',
-    title: 'Mobile Banking App',
-    summary: 'A secure mobile banking application with biometric authentication and real-time transaction notifications.',
-    coverImage: { url: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop', alt: 'Mobile app screens' },
-    techStack: ['React Native', 'TypeScript', 'GraphQL'],
+    slug: 'phishing-simulator',
+    title: 'Phishing Simulator',
+    summary: 'AI-powered phishing simulation and cybersecurity awareness platform with Gemini API integration.',
+    coverImage: { url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop', alt: 'Cybersecurity platform' },
+    techStack: ['React', 'Express.js', 'MongoDB', 'Gemini API'],
   },
   {
-    slug: 'design-system',
-    title: 'Component Library',
-    summary: 'A comprehensive design system with 50+ accessible components, serving as the foundation for multiple products.',
-    coverImage: { url: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=600&fit=crop', alt: 'Design system components' },
-    techStack: ['Storybook', 'Tailwind', 'Figma'],
+    slug: 'caesar-cipher-tool',
+    title: 'Caesar Cipher Tool',
+    summary: 'Cryptographic analysis platform for automated Caesar cipher detection and statistical frequency analysis.',
+    coverImage: { url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=600&fit=crop', alt: 'Cryptography tool' },
+    techStack: ['JavaScript', 'Cryptography', 'Statistics'],
   },
 ]
 
@@ -37,7 +37,7 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 bg-stone/95 backdrop-blur-sm border-b border-ink/10">
         <nav className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Fieldnote</Link>
+            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Areeb Syed</Link>
             <ul className="flex items-center gap-8">
               {navigation.map((item) => (
                 <li key={item.label}>
@@ -55,18 +55,18 @@ export default function HomePage() {
       <section className="min-h-[70vh] flex items-center">
         <div className="max-w-6xl mx-auto px-6 py-24">
           <div className="max-w-2xl">
-            <h1 className="font-display text-5xl md:text-7xl text-ink leading-[1.05] mb-6">Building things that matter</h1>
-            <p className="text-lg md:text-xl text-ink/70 leading-relaxed mb-8">Designer and developer crafting digital experiences at the intersection of form and function.</p>
-            <Link href="/projects" className="inline-flex px-6 py-3 bg-ember text-stone font-medium text-sm rounded-ledger hover:brightness-110 transition-all">View work</Link>
+            <h1 className="font-display text-5xl md:text-7xl text-ink leading-[1.05] mb-6">Building intelligent systems</h1>
+            <p className="text-lg md:text-xl text-ink/70 leading-relaxed mb-8">Applied AI • Cybersecurity • Systems Engineering. Building intelligence-oriented security tooling and analytical platforms.</p>
+            <Link href="/projects" className="inline-flex px-6 py-3 bg-ember text-stone font-medium text-sm rounded-ledger hover:brightness-110 transition-all">View Projects</Link>
           </div>
         </div>
       </section>
 
       <section className="block-spacing bg-stone">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="font-display text-3xl md:text-4xl text-ink mb-12">Selected work</h2>
+          <h2 className="font-display text-3xl md:text-4xl text-ink mb-12">Selected Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sampleProjects.map((project) => (
+            {featuredProjects.map((project) => (
               <Link key={project.slug} href={`/projects/${project.slug}`} className="group block bg-stone border border-ink/10 hover:border-ink rounded-ledger overflow-hidden transition-all">
                 <div className="aspect-[3/2] relative overflow-hidden">
                   <Image src={project.coverImage.url} alt={project.coverImage.alt} fill className="object-cover transition-transform group-hover:scale-105" />

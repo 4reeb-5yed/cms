@@ -3,71 +3,41 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 const projects = {
-  'ecommerce-dashboard': {
-    title: 'E-commerce Dashboard',
-    summary: 'A real-time analytics dashboard for online retailers, featuring sales tracking, inventory management, and customer insights.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop',
-    techStack: ['React', 'D3.js', 'Node.js', 'PostgreSQL', 'Redis'],
-    category: 'Web Application',
+  'interviewiq': {
+    title: 'InterviewIQ',
+    summary: 'AI-powered career intelligence platform for evidence-based résumé analysis, ATS evaluation, and interview preparation.',
+    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop',
+    techStack: ['Python', 'AI/ML', 'NLP', 'React', 'OpenAI API'],
+    category: 'AI/ML',
     year: '2024',
-    challenges: 'The main challenge was handling real-time data updates while maintaining smooth animations and interactions. We implemented WebSocket connections for live data and optimized D3.js rendering.',
-    solution: 'Built a custom charting library on top of D3.js with virtual scrolling for large datasets. Used Redis pub/sub for real-time updates and PostgreSQL for persistent storage.',
-    outcome: 'Reduced report generation time by 70% and increased user engagement by 40%.',
+    repoUrl: 'https://github.com/4reeb-5yed/InterviewIQ',
+    challenges: 'Creating an accurate ATS evaluation system that can analyze resumes against job descriptions and provide actionable feedback. Ensuring the AI understands context and nuances in professional experiences.',
+    solution: 'Built a multi-layer NLP pipeline that parses resumes, extracts key skills and experiences, and compares them against job requirements. Integrated with OpenAI for intelligent feedback generation.',
+    outcome: 'Helps job seekers understand their resume performance and improve their chances of passing ATS screening.',
   },
-  'mobile-banking': {
-    title: 'Mobile Banking App',
-    summary: 'A secure mobile banking application with biometric authentication and real-time transaction notifications.',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&h=800&fit=crop',
-    techStack: ['React Native', 'TypeScript', 'GraphQL', 'AWS Cognito'],
-    category: 'Mobile App',
+  'phishing-simulator': {
+    title: 'Phishing Simulator',
+    summary: 'AI-powered phishing simulation and cybersecurity awareness platform with Gemini API integration.',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=800&fit=crop',
+    techStack: ['React', 'Express.js', 'MongoDB', 'Gemini API', 'JavaScript'],
+    category: 'Cybersecurity',
     year: '2024',
-    challenges: 'Implementing secure biometric authentication while maintaining a smooth user experience across different devices and OS versions.',
-    solution: 'Used AWS Cognito for authentication with device-specific biometric integration. Built a custom secure storage layer for sensitive data.',
-    outcome: 'Achieved 4.8 star rating on app stores with 500K+ downloads.',
+    repoUrl: 'https://github.com/4reeb-5yed/Phishing_Simulator',
+    challenges: 'Creating realistic phishing templates that test employee awareness while ensuring the simulation is ethical and educational. Integrating AI for dynamic content generation.',
+    solution: 'Built a comprehensive phishing template system with AI-generated scenarios. Implemented detailed tracking and reporting for organizations to measure security awareness.',
+    outcome: 'Organizations can train employees to recognize phishing attempts and measure improvement over time.',
   },
-  'design-system': {
-    title: 'Component Library',
-    summary: 'A comprehensive design system with 50+ accessible components, serving as the foundation for multiple products.',
-    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&h=800&fit=crop',
-    techStack: ['Storybook', 'Tailwind CSS', 'TypeScript', 'Figma'],
-    category: 'Design System',
-    year: '2023',
-    challenges: 'Creating a consistent design language that works across multiple products while maintaining flexibility for product-specific customizations.',
-    solution: 'Established design tokens and a component API that allows for easy theming and customization without forking the core components.',
-    outcome: 'Reduced design-to-development time by 50% and improved design consistency across all products.',
-  },
-  'ai-content-platform': {
-    title: 'AI Content Platform',
-    summary: 'A content management system powered by AI, featuring automated tagging, content suggestions, and smart search.',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop',
-    techStack: ['Next.js', 'OpenAI', 'PostgreSQL', 'Vector DB'],
-    category: 'Web Application',
-    year: '2023',
-    challenges: 'Integrating AI capabilities without impacting performance or user experience. Ensuring content quality with AI-generated suggestions.',
-    solution: 'Implemented async AI processing with user-friendly loading states. Built a feedback loop system to continuously improve suggestions.',
-    outcome: 'Content creation time reduced by 60% with improved SEO performance.',
-  },
-  'fitness-tracker': {
-    title: 'Fitness Tracker',
-    summary: 'A comprehensive fitness tracking application with workout logging, progress visualization, and social challenges.',
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=800&fit=crop',
-    techStack: ['Flutter', 'Firebase', 'HealthKit', 'Google Fit'],
-    category: 'Mobile App',
-    year: '2022',
-    challenges: 'Syncing data across multiple health platforms while maintaining accuracy and privacy.',
-    solution: 'Built a unified data layer that normalizes data from different sources. Implemented end-to-end encryption for health data.',
-    outcome: '50K+ active users with 4.6 average rating.',
-  },
-  'real-estate-portal': {
-    title: 'Real Estate Portal',
-    summary: 'A modern real estate platform with virtual tours, advanced search filters, and mortgage calculator.',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=800&fit=crop',
-    techStack: ['Vue.js', 'Node.js', 'Mapbox', 'Three.js'],
-    category: 'Web Application',
-    year: '2022',
-    challenges: 'Creating immersive 3D virtual tours that load quickly on various devices and connections.',
-    solution: 'Implemented progressive loading for 3D models with adaptive quality based on device capabilities.',
-    outcome: 'Increased property engagement by 200% and reduced time-to-inquiry by 40%.',
+  'caesar-cipher-tool': {
+    title: 'Caesar Cipher Tool',
+    summary: 'Cryptographic analysis platform for automated Caesar cipher detection and statistical frequency analysis.',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&h=800&fit=crop',
+    techStack: ['JavaScript', 'Cryptography', 'Statistics', 'Web Technologies'],
+    category: 'Security Tools',
+    year: '2024',
+    repoUrl: 'https://github.com/4reeb-5yed/caesar-cipher-tool',
+    challenges: 'Developing an algorithm that can efficiently crack Caesar ciphers of varying lengths and languages. Balancing accuracy with computational efficiency.',
+    solution: 'Implemented multiple attack strategies including brute force, frequency analysis, and pattern matching. Built an intuitive interface for users to interact with cryptographic operations.',
+    outcome: 'Educational tool that demonstrates cryptographic concepts and automated cryptanalysis techniques.',
   },
 }
 
@@ -83,7 +53,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       <header className="sticky top-0 z-50 bg-stone/95 backdrop-blur-sm border-b border-ink/10">
         <nav className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Fieldnote</Link>
+            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Areeb Syed</Link>
             <ul className="flex items-center gap-8">
               <li><Link href="/projects" className="text-sm font-medium text-ember">Work</Link></li>
               <li><Link href="/about" className="text-sm font-medium text-ink hover:text-ember">About</Link></li>
@@ -109,7 +79,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             <Image src={project.image} alt={project.title} fill className="object-cover" priority />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             <div>
               <h3 className="text-xs font-mono uppercase text-brass mb-2">Year</h3>
               <p className="text-ink">{project.year}</p>
@@ -125,6 +95,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                   <span key={tech} className="px-2 py-1 text-xs border border-moss text-moss rounded-ledger">{tech}</span>
                 ))}
               </div>
+            </div>
+            <div>
+              <h3 className="text-xs font-mono uppercase text-brass mb-2">Source</h3>
+              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="text-ember hover:underline">View on GitHub →</a>
             </div>
           </div>
 

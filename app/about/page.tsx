@@ -1,16 +1,15 @@
 import Link from 'next/link'
 
 const skills = [
-  { category: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Vue.js', 'Tailwind CSS'] },
-  { category: 'Backend', items: ['Node.js', 'Python', 'PostgreSQL', 'GraphQL', 'REST APIs'] },
-  { category: 'Design', items: ['Figma', 'UI/UX Design', 'Design Systems', 'Prototyping', 'User Research'] },
-  { category: 'Tools', items: ['Git', 'Docker', 'AWS', 'Vercel', 'Jest'] },
+  { category: 'AI & Machine Learning', items: ['Python', 'NLP', 'TensorFlow', 'Gemini API', 'OpenAI'] },
+  { category: 'Cybersecurity', items: ['Penetration Testing', 'Cryptography', 'Phishing Detection', 'Security Analysis', 'Risk Assessment'] },
+  { category: 'Full Stack', items: ['React', 'Next.js', 'Express.js', 'Node.js', 'MongoDB'] },
+  { category: 'Tools & Platforms', items: ['Git', 'GitHub', 'Docker', 'Vercel', 'AWS'] },
 ]
 
 const experience = [
-  { year: '2022-Present', role: 'Senior Frontend Developer', company: 'Tech Startup' },
-  { year: '2020-2022', role: 'Full Stack Developer', company: 'Digital Agency' },
-  { year: '2018-2020', role: 'UI/UX Designer', company: 'Creative Studio' },
+  { year: '2024-Present', role: 'Student Researcher', company: 'The Venture MIT-WPU' },
+  { year: '2023-2027', role: 'B.Tech Student', company: 'MIT World Peace University' },
 ]
 
 export default function AboutPage() {
@@ -19,7 +18,7 @@ export default function AboutPage() {
       <header className="sticky top-0 z-50 bg-stone/95 backdrop-blur-sm border-b border-ink/10">
         <nav className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Fieldnote</Link>
+            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Areeb Syed</Link>
             <ul className="flex items-center gap-8">
               <li><Link href="/projects" className="text-sm font-medium text-ink hover:text-ember">Work</Link></li>
               <li><Link href="/about" className="text-sm font-medium text-ember">About</Link></li>
@@ -35,14 +34,22 @@ export default function AboutPage() {
             <h1 className="font-display text-4xl md:text-5xl text-ink mb-8">About</h1>
             <div className="prose prose-lg text-ink/80">
               <p className="mb-6">
-                I'm a designer and developer based in San Francisco, passionate about creating digital experiences that balance aesthetics with functionality.
+                I'm <strong>Areeb Syed</strong>, a student at MIT World Peace University pursuing Analytics & Artificial Intelligence. I'm passionate about building intelligence-oriented security tooling, analytical cryptographic systems, and offensive-simulation infrastructure.
               </p>
               <p className="mb-6">
-                With over 5 years of experience in the industry, I've worked with startups and established companies to build products that users love. My approach combines technical expertise with design thinking to deliver solutions that are both beautiful and effective.
+                My work focuses on the intersection of AI and cybersecurity, where I develop tools that help organizations strengthen their security posture through simulated attacks and intelligent analysis. I'm particularly interested in automated security assessment and AI-powered threat detection.
               </p>
-              <p>
-                When I'm not coding or designing, you can find me exploring hiking trails, reading about technology, or experimenting with new design tools.
+              <p className="mb-6">
+                With hands-on experience in phishing simulation platforms, cryptographic analysis tools, and AI-powered career intelligence systems, I'm constantly exploring new ways to apply machine learning to real-world security challenges.
               </p>
+              <div className="flex flex-wrap gap-4 mt-6">
+                <a href="https://www.linkedin.com/in/areeb-syed-b19491245" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-ink text-stone rounded-ledger hover:bg-ink/80 transition-colors">
+                  LinkedIn
+                </a>
+                <a href="https://github.com/4reeb-5yed" target="_blank" rel="noopener noreferrer" className="px-4 py-2 border border-ink text-ink rounded-ledger hover:bg-ink/5 transition-colors">
+                  GitHub
+                </a>
+              </div>
             </div>
           </div>
 
@@ -60,7 +67,7 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <h2 className="font-display text-2xl text-ink mb-8">Skills</h2>
+            <h2 className="font-display text-2xl text-ink mb-8">Skills & Expertise</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {skills.map((skill) => (
                 <div key={skill.category}>

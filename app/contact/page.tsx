@@ -16,7 +16,7 @@ export default function ContactPage() {
       <header className="sticky top-0 z-50 bg-stone/95 backdrop-blur-sm border-b border-ink/10">
         <nav className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Fieldnote</Link>
+            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Areeb Syed</Link>
             <ul className="flex items-center gap-8">
               <li><Link href="/projects" className="text-sm font-medium text-ink hover:text-ember">Work</Link></li>
               <li><Link href="/about" className="text-sm font-medium text-ink hover:text-ember">About</Link></li>
@@ -29,7 +29,7 @@ export default function ContactPage() {
       <section className="block-spacing">
         <div className="max-w-2xl mx-auto px-6">
           <h1 className="font-display text-4xl md:text-5xl text-ink mb-4">Get in Touch</h1>
-          <p className="text-lg text-ink/70 mb-12">Have a project in mind? Let's talk about how we can work together.</p>
+          <p className="text-lg text-ink/70 mb-12">Interested in AI, cybersecurity, or systems engineering? Let's connect.</p>
 
           {submitted ? (
             <div className="bg-moss/10 border border-moss text-moss p-8 rounded-ledger text-center">
@@ -71,7 +71,7 @@ export default function ContactPage() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 bg-stone border border-ink/20 text-ink rounded-ledger focus:outline-none focus:border-ember transition-colors resize-none"
-                  placeholder="Tell me about your project..."
+                  placeholder="Let's discuss AI, cybersecurity, or collaboration opportunities..."
                 />
               </div>
               <button
@@ -85,10 +85,10 @@ export default function ContactPage() {
 
           <div className="mt-16 pt-8 border-t border-ink/10">
             <p className="text-sm text-ink/70 mb-4">Or reach me directly:</p>
-            <div className="flex gap-6">
-              <a href="mailto:hello@fieldnote.dev" className="text-ember hover:underline">hello@fieldnote.dev</a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-ink/70 hover:text-ink">GitHub</a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-ink/70 hover:text-ink">LinkedIn</a>
+            <div className="flex flex-wrap gap-6">
+              <a href="mailto:areeb.syed1@outlook.com" className="text-ember hover:underline">areeb.syed1@outlook.com</a>
+              <a href="https://github.com/4reeb-5yed" target="_blank" rel="noopener noreferrer" className="text-ink/70 hover:text-ink">GitHub</a>
+              <a href="https://www.linkedin.com/in/areeb-syed-b19491245" target="_blank" rel="noopener noreferrer" className="text-ink/70 hover:text-ink">LinkedIn</a>
             </div>
           </div>
         </div>
