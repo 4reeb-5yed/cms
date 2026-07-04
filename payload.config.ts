@@ -16,7 +16,7 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
-    meta: { titleSuffix: '- Fieldnote Portfolio', favicon: '/favicon.ico' },
+    meta: { titleSuffix: '- Fieldnote Portfolio' },
   },
   editor: slateEditor({}),
   db: postgresAdapter({ pool: { connectionString: process.env.DATABASE_URI } }),
