@@ -4,11 +4,33 @@ import { useState } from 'react'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const mailtoLink = `mailto:areeb.syed1@outlook.com?subject=${encodeURIComponent(formData.subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`
-    window.location.href = mailtoLink
+    setStatus('loading')
+    setErrorMessage('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      setStatus('success')
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    } catch (error) {
+      setStatus('error')
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send message. Please try again.')
+    }
   }
 
   return (
@@ -29,7 +51,21 @@ export default function ContactPage() {
       <section className="block-spacing">
         <div className="max-w-2xl mx-auto px-6">
           <h1 className="font-display text-4xl md:text-5xl text-ink mb-4">Get in Touch</h1>
-          <p className="text-lg text-ink/70 mb-12">Interested in AI, cybersecurity, or systems engineering? Let's connect.</p>
+          <p className="text-lg text-ink/70 mb-12">Interested in AI, cybersecurity, or systems engineering? Let&apos;s connect.</p>
+
+          {status === 'success' && (
+            <div className="mb-8 p-4 bg-moss/20 border border-moss text-moss rounded-ledger">
+              <p className="font-medium">Message sent successfully!</p>
+              <p className="text-sm mt-1">I&apos;ll get back to you within a few days.</p>
+            </div>
+          )}
+
+          {status === 'error' && (
+            <div className="mb-8 p-4 bg-red-50 border border-red-300 text-red-700 rounded-ledger">
+              <p className="font-medium">Failed to send message</p>
+              <p className="text-sm mt-1">{errorMessage}</p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -81,9 +117,10 @@ export default function ContactPage() {
             </div>
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-ember text-stone font-medium rounded-ledger hover:brightness-110 transition-all"
+              disabled={status === 'loading'}
+              className="w-full px-6 py-3 bg-ember text-stone font-medium rounded-ledger hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Send Email
+              {status === 'loading' ? 'Sending...' : 'Send Message'}
             </button>
           </form>
 

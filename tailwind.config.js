@@ -7,19 +7,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        stone: '#E8E3D6',
-        ink: '#1a1817',
-        ember: '#B3502C',
-        moss: '#5C6B4D',
-        brass: '#8B7355',
-        charcoal: '#2D2926',
+        // Design System "Fieldnote" palette
+        // Source of truth: Design System doc (portfolio-platform-design-system.md)
+        stone: '#E8E3D6',      // Primary background
+        ink: '#211F1A',         // Primary text (from design doc)
+        ember: '#B3502C',        // Primary accent
+        moss: '#556253',        // Secondary accent (from design doc)
+        brass: '#A6813F',       // Tertiary accent (from design doc)
+        charcoal: '#2C2A24',     // Dark surfaces (from design doc)
       },
       fontFamily: {
-        display: ['Georgia', 'serif'],
-        body: ['system-ui', 'sans-serif'],
+        // Using CSS variables set by next/font in layout.tsx
+        display: ['var(--font-display)', 'Georgia', 'serif'],
+        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'Courier New', 'monospace'],
       },
       borderRadius: {
-        'ledger': '0.5rem',
+        'ledger': '0.125rem',   // 2px - designed corner, not soft rounded
       },
     },
   },

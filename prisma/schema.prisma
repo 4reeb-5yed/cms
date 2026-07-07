@@ -1,0 +1,112 @@
+// Prisma schema for Fieldnote Portfolio CMS
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Media/Image storage
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String   @default("")
+  filename  String   @default("")
+  width     Int?
+  height    Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  pageCoverImages    Page[]  @relation("PageCoverImage")
+  projectCoverImages Project[] @relation("ProjectCoverImage")
+}
+
+// Page model - generic CMS pages
+model Page {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  showInNav   Boolean  @default(false)
+  navOrder    Int      @default(0)
+  coverImage  Media?   @relation("PageCoverImage", fields: [coverImageId], references: [id])
+  coverImageId String? @unique
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+
+  // Content blocks stored as JSON
+  blocks Json @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Project model - portfolio case studies
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  summary     String   @default("")
+  coverImage  Media?   @relation("ProjectCoverImage", fields: [coverImageId], references: [id])
+  coverImageId String? @unique
+  techStack   String[] @default([])
+
+  // URLs
+  liveUrl String?
+  repoUrl String?
+
+  // Gallery images stored as JSON array of media objects
+  gallery Json @default("[]")
+
+  // Rich content blocks
+  body Json @default("[]")
+
+  // Metadata
+  featured       Boolean  @default(false)
+  publishedDate  DateTime @default(now())
+  category       String   @default("")
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+
+  // Challenge/Solution/Outcome for project detail
+  challenges String?
+  solution   String?
+  outcome    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Site Settings singleton
+model SiteSettings {
+  id          String   @id @default("singleton")
+  siteTitle   String   @default("My Portfolio")
+  tagline     String   @default("")
+  logoUrl     String?
+  footerText  String   @default("")
+
+  // Social links stored as JSON
+  socialLinks Json @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Contact Messages
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

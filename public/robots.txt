@@ -1,0 +1,14 @@
+# robots.txt for Fieldnote Portfolio
+
+User-agent: *
+Allow: /
+
+# Disallow admin routes
+Disallow: /admin
+Disallow: /api/auth
+Disallow: /api/contact
+Disallow: /api/pages
+Disallow: /api/projects
+Disallow: /api/settings
+
+Sitemap: /sitemap.xml

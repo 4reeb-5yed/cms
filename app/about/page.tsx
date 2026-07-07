@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { prisma } from '@/lib/prisma'
 
 const skills = [
   { category: 'AI & Machine Learning', items: ['Python', 'NLP', 'TensorFlow', 'Gemini API', 'OpenAI'] },
@@ -12,7 +13,29 @@ const experience = [
   { year: '2023-2027', role: 'B.Tech Student', company: 'MIT World Peace University' },
 ]
 
-export default function AboutPage() {
+async function getNavigation() {
+  try {
+    const pages = await prisma.page.findMany({
+      where: { showInNav: true },
+      orderBy: { navOrder: 'asc' }
+    })
+    return pages.map(page => ({
+      label: page.title,
+      slug: page.slug === '/' ? '' : page.slug
+    }))
+  } catch (error) {
+    console.error('Error fetching navigation:', error)
+    return [
+      { label: 'Work', slug: 'projects' },
+      { label: 'About', slug: 'about' },
+      { label: 'Contact', slug: 'contact' },
+    ]
+  }
+}
+
+export default async function AboutPage() {
+  const navigation = await getNavigation()
+
   return (
     <main className="min-h-screen bg-stone">
       <header className="sticky top-0 z-50 bg-stone/95 backdrop-blur-sm border-b border-ink/10">
@@ -20,9 +43,13 @@ export default function AboutPage() {
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">Areeb Syed</Link>
             <ul className="flex items-center gap-8">
-              <li><Link href="/projects" className="text-sm font-medium text-ink hover:text-ember">Work</Link></li>
-              <li><Link href="/about" className="text-sm font-medium text-ember">About</Link></li>
-              <li><Link href="/contact" className="text-sm font-medium text-ink hover:text-ember">Contact</Link></li>
+              {navigation.map((item) => (
+                <li key={item.label}>
+                  <Link href={`/${item.slug}`} className={`text-sm font-medium ${item.slug === 'about' ? 'text-ember' : 'text-ink'} hover:text-ember`}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </nav>

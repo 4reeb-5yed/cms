@@ -1,30 +1,78 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { sampleSiteSettings } from '@/lib/api'
+import { useRouter } from 'next/navigation'
+
+interface SiteSettings {
+  siteTitle: string
+  tagline: string
+  footerText: string
+  socialLinks: { platform: string; url: string }[]
+}
 
 export default function SiteSettings() {
-  const [settings, setSettings] = useState({
+  const [settings, setSettings] = useState<SiteSettings>({
     siteTitle: '',
     tagline: '',
     footerText: '',
-    socialLinks: [] as { platform: string; url: string }[]
+    socialLinks: []
   })
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [error, setError] = useState('')
+  const router = useRouter()
 
   useEffect(() => {
-    const stored = localStorage.getItem('cms_settings')
-    if (stored) {
-      setSettings(JSON.parse(stored))
-    } else {
-      setSettings(sampleSiteSettings)
-    }
+    fetchSettings()
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const fetchSettings = async () => {
+    try {
+      const response = await fetch('/api/settings')
+      const data = await response.json()
+      setSettings({
+        siteTitle: data.siteTitle || '',
+        tagline: data.tagline || '',
+        footerText: data.footerText || '',
+        socialLinks: typeof data.socialLinks === 'string' 
+          ? JSON.parse(data.socialLinks) 
+          : (data.socialLinks || [])
+      })
+    } catch (err) {
+      console.error('Error fetching settings:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    localStorage.setItem('cms_settings', JSON.stringify(settings))
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+    setSaving(true)
+    setError('')
+    setSaved(false)
+
+    try {
+      const response = await fetch('/api/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...settings,
+          socialLinks: JSON.stringify(settings.socialLinks)
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to save settings')
+      }
+
+      setSaved(true)
+      setTimeout(() => setSaved(false), 3000)
+    } catch (err) {
+      setError('Failed to save settings. Please try again.')
+      console.error('Error saving settings:', err)
+    } finally {
+      setSaving(false)
+    }
   }
 
   const addSocialLink = () => {
@@ -46,12 +94,26 @@ export default function SiteSettings() {
     setSettings({ ...settings, socialLinks: updated })
   }
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-ink/50">Loading settings...</p>
+      </div>
+    )
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-display text-ink">Site Settings</h1>
-        {saved && <span className="text-moss">✓ Saved</span>}
+        {saved && <span className="text-moss font-medium">✓ Saved successfully</span>}
       </div>
+
+      {error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-ledger">
+          {error}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="bg-white rounded-ledger border border-ink/10 p-6 max-w-2xl space-y-6">
         <div>
@@ -125,11 +187,18 @@ export default function SiteSettings() {
                 </button>
               </div>
             ))}
+            {settings.socialLinks.length === 0 && (
+              <p className="text-sm text-ink/50">No social links added yet.</p>
+            )}
           </div>
         </div>
 
-        <button type="submit" className="px-6 py-2 bg-ember text-stone rounded-ledger hover:brightness-110">
-          Save Settings
+        <button 
+          type="submit" 
+          disabled={saving}
+          className="px-6 py-2 bg-ember text-stone rounded-ledger hover:brightness-110 disabled:opacity-50"
+        >
+          {saving ? 'Saving...' : 'Save Settings'}
         </button>
       </form>
     </div>

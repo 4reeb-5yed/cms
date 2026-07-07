@@ -2,57 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --ink: #1a1817;
-  --stone: #E8E3D6;
-  --charcoal: #2B2826;
-  --ember: #B3502C;
-  --moss: #4A5E4C;
-  --brass: #8C7346;
+/* Design System "Fieldnote" - Tailwind is the source of truth */
+/* Color and typography tokens are defined in tailwind.config.js */
+
+@layer base {
+  body {
+    @apply bg-stone text-ink antialiased;
+  }
 }
 
-body {
-  background-color: var(--stone);
-  color: var(--ink);
-}
-
-.font-display {
-  font-family: Georgia, 'Times New Roman', serif;
-}
-
-.font-body {
-  font-family: system-ui, -apple-system, sans-serif;
-}
-
-.font-mono {
-  font-family: 'Courier New', monospace;
-}
-
-.bg-stone { background-color: var(--stone); }
-.bg-ink { background-color: var(--ink); }
-.bg-charcoal { background-color: var(--charcoal); }
-.bg-ember { background-color: var(--ember); }
-.bg-moss { background-color: var(--moss); }
-.bg-brass { background-color: var(--brass); }
-
-.text-stone { color: var(--stone); }
-.text-ink { color: var(--ink); }
-.text-charcoal { color: var(--charcoal); }
-.text-ember { color: var(--ember); }
-.text-moss { color: var(--moss); }
-.text-brass { color: var(--brass); }
-
-.border-ink { border-color: var(--ink); }
-.border-stone { border-color: var(--stone); }
-.border-ember { border-color: var(--ember); }
-.border-moss { border-color: var(--moss); }
-.border-brass { border-color: var(--brass); }
-
-.rounded-ledger {
-  border-radius: 0.25rem;
-}
-
-.block-spacing {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+@layer components {
+  .block-spacing {
+    @apply py-20;
+  }
 }

@@ -1,13 +1,29 @@
 'use client'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const router = useRouter()
+  const [loggingOut, setLoggingOut] = useState(false)
   const isLogin = pathname === '/admin/login'
 
   if (isLogin) {
     return <>{children}</>
+  }
+
+  const handleLogout = async () => {
+    setLoggingOut(true)
+    try {
+      await fetch('/api/auth', {
+        method: 'DELETE'
+      })
+      router.push('/admin/login')
+    } catch (error) {
+      console.error('Logout error:', error)
+      setLoggingOut(false)
+    }
   }
 
   return (
@@ -25,9 +41,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             <div className="flex items-center gap-4">
               <Link href="/" target="_blank" className="text-sm text-stone/70 hover:text-stone">View Site →</Link>
-              <form action="/api/auth/logout" method="POST">
-                <button type="submit" className="text-sm text-stone/70 hover:text-stone">Logout</button>
-              </form>
+              <button 
+                onClick={handleLogout} 
+                disabled={loggingOut}
+                className="text-sm text-stone/70 hover:text-stone disabled:opacity-50"
+              >
+                {loggingOut ? 'Logging out...' : 'Logout'}
+              </button>
             </div>
           </div>
         </div>
