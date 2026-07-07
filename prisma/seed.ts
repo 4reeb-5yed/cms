@@ -119,6 +119,73 @@ async function main() {
     }
   })
 
+  // AWS Projects
+  await prisma.project.create({
+    data: {
+      title: 'AWS S3 Static Website',
+      slug: 'aws-s3-static-hosting',
+      summary: 'A simple static website hosted on AWS S3 — object storage, public access policies, and static hosting, no servers involved.',
+      coverImageId: null,
+      techStack: ['AWS S3', 'CloudFront', 'IAM'],
+      liveUrl: 'http://areeb-cloud-demo-2026.s3-website-us-east-1.amazonaws.com',
+      repoUrl: 'https://github.com/4reeb-5yed/aws-s3-static-hosting',
+      featured: false,
+      publishedDate: new Date('2024-07-06'),
+      category: 'Cloud Computing',
+      metaTitle: 'AWS S3 Static Hosting',
+      metaDescription: 'Static website hosted on AWS S3',
+      challenges: 'Setting up proper bucket policies, enabling public access correctly, and configuring static website hosting with appropriate index/error documents.',
+      solution: 'Created S3 bucket with proper public access settings, configured static website hosting, and set up custom error pages.',
+      outcome: 'Deployed a static website using pure object storage - no servers, highly available, and cost-effective.',
+      gallery: JSON.stringify([]),
+      body: JSON.stringify([])
+    }
+  })
+
+  await prisma.project.create({
+    data: {
+      title: 'AWS Lambda + API Gateway',
+      slug: 'aws-lambda-api-gateway',
+      summary: 'A minimal serverless REST-style API: a single AWS Lambda function exposed publicly through API Gateway. No servers to manage, billed only per request.',
+      coverImageId: null,
+      techStack: ['AWS Lambda', 'API Gateway', 'Python', 'IAM'],
+      liveUrl: 'https://gg7fwv3qni.execute-api.us-east-1.amazonaws.com/hello-api-function',
+      repoUrl: 'https://github.com/4reeb-5yed/aws-lambda-api-gateway',
+      featured: false,
+      publishedDate: new Date('2024-07-07'),
+      category: 'Cloud Computing',
+      metaTitle: 'AWS Lambda Serverless API',
+      metaDescription: 'Serverless API using AWS Lambda and API Gateway',
+      challenges: 'Understanding the Lambda proxy integration response format (statusCode, headers, body), and connecting API Gateway routes to Lambda functions.',
+      solution: 'Created a Lambda function with Python 3.12 runtime, configured HTTP API in API Gateway with Lambda integration, and deployed to $default stage.',
+      outcome: 'Built a production-ready serverless API that auto-deploys changes, costs $0 within free tier, and scales automatically.',
+      gallery: JSON.stringify([]),
+      body: JSON.stringify([])
+    }
+  })
+
+  await prisma.project.create({
+    data: {
+      title: 'DSA Question Bank',
+      slug: 'dsa-question-bank',
+      summary: 'A curated collection of 120 Data Structures & Algorithms problems with clean solutions, comprehensive tests, and difficulty ratings — powering an autonomous 100-day coding challenge pipeline.',
+      coverImageId: null,
+      techStack: ['Python', 'JSON', 'pytest'],
+      liveUrl: null,
+      repoUrl: 'https://github.com/4reeb-5yed/dsa-question-bank',
+      featured: false,
+      publishedDate: new Date('2024-01-01'),
+      category: 'DSA',
+      metaTitle: 'DSA Question Bank',
+      metaDescription: '120 DSA problems with solutions for automation',
+      challenges: 'Organizing 120+ problems with consistent schema, difficulty ratings, and comprehensive test cases for automated validation.',
+      solution: 'Created a structured JSON bank with problem statements, solution code, test cases, and metadata (topics, difficulty, slugs).',
+      outcome: 'Powers a 100-day automated DSA practice system with problems across 12+ topics including arrays, graphs, DP, trees, and more.',
+      gallery: JSON.stringify([]),
+      body: JSON.stringify([])
+    }
+  })
+
   // Create pages
   await prisma.page.create({
     data: {
