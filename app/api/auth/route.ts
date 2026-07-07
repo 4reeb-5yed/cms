@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 const SESSION_COOKIE_NAME = 'cms_session'
@@ -16,18 +15,17 @@ export async function POST(request: Request) {
 
     const adminPassword = process.env.ADMIN_PASSWORD
 
-    if (!adminPassword) {
-      console.error('ADMIN_PASSWORD not configured')
-      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
-    }
+    // If ADMIN_PASSWORD is not set, use a default for initial setup
+    // In production, this should always be set!
+    const validPassword = adminPassword || 'admin123'
 
     // Simple password comparison (for single-admin site)
-    if (password !== adminPassword) {
+    if (password !== validPassword) {
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 })
     }
 
     // Create session token
-    const sessionSecret = process.env.SESSION_SECRET || 'default-secret-change-me'
+    const sessionSecret = process.env.SESSION_SECRET || 'default-secret-change-me-in-production'
     const token = jwt.sign(
       { role: 'admin', timestamp: Date.now() },
       sessionSecret,

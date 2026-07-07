@@ -2,6 +2,48 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
 
+// Default data when database is not available
+const defaultFeaturedProjects = [
+  {
+    slug: 'interviewiq',
+    title: 'InterviewIQ',
+    summary: 'AI-powered career intelligence platform for evidence-based résumé analysis, ATS evaluation, and interview preparation.',
+    coverImage: { url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop', alt: 'AI platform interface' },
+    techStack: ['Python', 'AI/ML', 'NLP', 'FastAPI', 'LangGraph'],
+  },
+  {
+    slug: 'phishing-simulator',
+    title: 'Phishing Simulator',
+    summary: 'AI-powered phishing simulation and cybersecurity awareness platform with Gemini API integration.',
+    coverImage: { url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop', alt: 'Cybersecurity platform' },
+    techStack: ['React', 'Express.js', 'MongoDB', 'Gemini API'],
+  },
+  {
+    slug: 'caesar-cipher-tool',
+    title: 'Caesar Cipher Pro',
+    summary: 'Cryptographic analysis platform for automated Caesar cipher detection and statistical frequency analysis.',
+    coverImage: { url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=600&fit=crop', alt: 'Cryptography tool' },
+    techStack: ['React', 'Vite', 'Chi-squared Analysis'],
+  },
+]
+
+const defaultSettings = {
+  siteTitle: 'Areeb Syed',
+  tagline: 'Applied AI • Cybersecurity • Systems Engineering',
+  footerText: '© 2024 Areeb Syed. Building intelligent systems.',
+  socialLinks: [
+    { platform: 'email', url: 'mailto:areeb.syed1@outlook.com' },
+    { platform: 'github', url: 'https://github.com/4reeb-5yed' },
+    { platform: 'linkedin', url: 'https://www.linkedin.com/in/areeb-syed-b19491245' },
+  ]
+}
+
+const defaultNavigation = [
+  { label: 'Work', slug: 'projects' },
+  { label: 'About', slug: 'about' },
+  { label: 'Contact', slug: 'contact' },
+]
+
 async function getFeaturedProjects() {
   try {
     return await prisma.project.findMany({
@@ -11,7 +53,7 @@ async function getFeaturedProjects() {
     })
   } catch (error) {
     console.error('Error fetching featured projects:', error)
-    return []
+    return null // Return null to indicate DB unavailable
   }
 }
 
@@ -21,26 +63,16 @@ async function getSiteSettings() {
       where: { id: 'singleton' }
     })
     return settings ? {
-      siteTitle: settings.siteTitle || 'Areeb Syed',
-      tagline: settings.tagline || 'Applied AI • Cybersecurity • Systems Engineering',
-      footerText: settings.footerText || '© 2024 Areeb Syed. Building intelligent systems.',
+      siteTitle: settings.siteTitle || defaultSettings.siteTitle,
+      tagline: settings.tagline || defaultSettings.tagline,
+      footerText: settings.footerText || defaultSettings.footerText,
       socialLinks: typeof settings.socialLinks === 'string' 
         ? JSON.parse(settings.socialLinks) 
-        : (settings.socialLinks || [])
-    } : {
-      siteTitle: 'Areeb Syed',
-      tagline: 'Applied AI • Cybersecurity • Systems Engineering',
-      footerText: '© 2024 Areeb Syed. Building intelligent systems.',
-      socialLinks: []
-    }
+        : (settings.socialLinks || defaultSettings.socialLinks)
+    } : null
   } catch (error) {
     console.error('Error fetching settings:', error)
-    return {
-      siteTitle: 'Areeb Syed',
-      tagline: 'Applied AI • Cybersecurity • Systems Engineering',
-      footerText: '© 2024 Areeb Syed. Building intelligent systems.',
-      socialLinks: []
-    }
+    return null
   }
 }
 
@@ -50,17 +82,15 @@ async function getNavigation() {
       where: { showInNav: true },
       orderBy: { navOrder: 'asc' }
     })
-    return pages.map(page => ({
-      label: page.title,
-      slug: page.slug === '/' ? '' : page.slug
-    }))
+    return pages.length > 0 
+      ? pages.map(page => ({
+          label: page.title,
+          slug: page.slug === '/' ? '' : page.slug
+        }))
+      : null
   } catch (error) {
     console.error('Error fetching navigation:', error)
-    return [
-      { label: 'Work', slug: 'projects' },
-      { label: 'About', slug: 'about' },
-      { label: 'Contact', slug: 'contact' },
-    ]
+    return null
   }
 }
 
@@ -71,14 +101,19 @@ export default async function HomePage() {
     getNavigation()
   ])
 
+  // Use defaults if database is unavailable
+  const projects = featuredProjects || defaultFeaturedProjects
+  const siteSettings = settings || defaultSettings
+  const nav = navigation || defaultNavigation
+
   return (
     <main className="min-h-screen bg-stone">
       <header className="sticky top-0 z-50 bg-stone/95 backdrop-blur-sm border-b border-ink/10">
         <nav className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">{settings.siteTitle}</Link>
+            <Link href="/" className="font-display text-xl text-ink hover:text-ember transition-colors">{siteSettings.siteTitle}</Link>
             <ul className="flex items-center gap-8">
-              {navigation.map((item) => (
+              {nav.map((item) => (
                 <li key={item.label}>
                   <Link href={`/${item.slug}`} className="text-sm font-medium text-ink hover:text-ember relative group">
                     {item.label}
@@ -95,7 +130,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-6 py-24">
           <div className="max-w-2xl">
             <h1 className="font-display text-5xl md:text-7xl text-ink leading-[1.05] mb-6">Building intelligent systems</h1>
-            <p className="text-lg md:text-xl text-ink/70 leading-relaxed mb-8">{settings.tagline}</p>
+            <p className="text-lg md:text-xl text-ink/70 leading-relaxed mb-8">{siteSettings.tagline}</p>
             <Link href="/projects" className="inline-flex px-6 py-3 bg-ember text-stone font-medium text-sm rounded-ledger hover:brightness-110 transition-all">View Projects</Link>
           </div>
         </div>
@@ -105,7 +140,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="font-display text-3xl md:text-4xl text-ink mb-12">Selected Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProjects.map((project) => (
+            {projects.map((project) => (
               <Link key={project.slug} href={`/projects/${project.slug}`} className="group block bg-stone border border-ink/10 hover:border-ink rounded-ledger overflow-hidden transition-all">
                 <div className="aspect-[3/2] relative overflow-hidden">
                   <Image 
@@ -134,13 +169,13 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-6 py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div>
-              <h3 className="font-display text-xl mb-4">{settings.siteTitle}</h3>
-              <p className="text-stone/70 text-sm">{settings.tagline}</p>
+              <h3 className="font-display text-xl mb-4">{siteSettings.siteTitle}</h3>
+              <p className="text-stone/70 text-sm">{siteSettings.tagline}</p>
             </div>
             <nav>
               <h4 className="text-xs font-mono uppercase text-brass mb-4">Navigation</h4>
               <ul className="space-y-2">
-                {navigation.map((item) => (
+                {nav.map((item) => (
                   <li key={item.label}><Link href={`/${item.slug}`} className="text-sm text-stone/70 hover:text-stone">{item.label}</Link></li>
                 ))}
               </ul>
@@ -148,7 +183,7 @@ export default async function HomePage() {
             <div>
               <h4 className="text-xs font-mono uppercase text-brass mb-4">Connect</h4>
               <div className="flex gap-4">
-                {settings.socialLinks.map((link: { platform: string; url: string }) => (
+                {siteSettings.socialLinks.map((link: { platform: string; url: string }) => (
                   <a 
                     key={link.platform} 
                     href={link.url} 
@@ -172,7 +207,7 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="border-t border-stone/10 mt-12 pt-8 text-center text-stone/50 text-sm">
-            {settings.footerText}
+            {siteSettings.footerText}
           </div>
         </div>
       </footer>
